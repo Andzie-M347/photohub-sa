@@ -39,7 +39,7 @@ div[class$="wrapper"] {
 
 .button-light {
   border: 1px solid #eee;
-  background: #eee;
+  background: #fff;
   padding: 1.2em !important;
   display: inline-block;
   margin-right: 1.5rem;
@@ -55,7 +55,8 @@ div[class$="wrapper"] {
   background-color: #fff; }
   .navigation__enter {
     display: flex;
-    flex: 0 0 30%; }
+    flex: 0 0 40%;
+    align-items: center; }
     .navigation__enter--logo {
       margin-right: 4.5rem; }
   .navigation__menu li {
@@ -88,7 +89,8 @@ div[class$="wrapper"] {
       text-decoration: none;
       padding: 0 1.5rem; }
     .navigation__user-options i {
-      font-size: 2rem; }
+      font-size: 2rem;
+      color: goldenrod; }
   .navigation a {
     color: #767676; }
 
@@ -102,6 +104,16 @@ div[class$="wrapper"] {
     left: 11.5%; }
     .showcase-banner__cite a {
       color: #fff; }
+
+.topics {
+  padding: 2.5rem 3em;
+  text-align: center;
+  box-shadow: 0 0.25rem 1.75rem rgba(30, 34, 40, 0.07); }
+  .topics li {
+    display: inline-block;
+    padding: 0 2rem; }
+  .topics a {
+    color: #767676; }
 
 .photohub-content {
   padding: 6rem 0; }

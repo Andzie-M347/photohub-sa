@@ -8,8 +8,6 @@ const api = createApi({
     accessKey: process.env.UNSPLASH_ACCESS_KEY
 });
 
-// Get image container
-const imageContainer = document.querySelector('.photohub-content__wrapper');
 // Get single Image 
 const banner = document.querySelector('.showcase-banner');
 
@@ -22,11 +20,10 @@ api.photos.getRandom('https://api.unsplash.com/photos/photos/random', {
     count: 1,
 }).then(result => {
     const photo = result.response;
-    console.log(photo);
     banner.style.background = `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(${photo.urls.regular}) 0% 0% / cover no-repeat`;
     const cite = document.createElement('div');
     cite.classList.add('showcase-banner__cite');
-     cite.innerHTML = `<div class="cite-box">
+    cite.innerHTML = `<div class="cite-box">
          <small class="box-cite__user">
             <a href="javascript:void(0)">
                 <span> Photo by ${photo.user.first_name} </span
@@ -36,9 +33,8 @@ api.photos.getRandom('https://api.unsplash.com/photos/photos/random', {
     banner.appendChild(cite);
 })
 
-
-
-
+// Get image container
+const imageContainer = document.querySelector('.photohub-content__wrapper');
 
 api.photos.list('https://api.unsplash.com/photos').then(result => {
     if (result.type === 'success') {
@@ -65,6 +61,31 @@ api.photos.list('https://api.unsplash.com/photos').then(result => {
     }
 });
 
+// Tags - topics
+const tags = document.querySelector('.topics');
 
-{
-    /* <small> ${photo.sponsorship.sponser.tagline == 'undefined' ? photo.sponsorship.sponser.tagline : '' } </small> */ }
+api.topics.list('https://api.unsplash.com/topics', {
+    page: 1,
+    perPage: 12,
+
+}).then(result => {
+    const topics = result.response;
+
+    console.log(topics);
+
+
+
+    topics.results.map((topic) => {
+        const li = document.createElement('li');
+        li.classList.add('topic__list');
+        li.innerHTML = `<div class="swiper">
+                <a href="javascript:void(0)">${topic.title}</a>
+        </div>`;
+        tags.appendChild(li);
+    })
+
+
+
+    ;
+
+})
