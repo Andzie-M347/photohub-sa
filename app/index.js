@@ -9,16 +9,40 @@ const api = createApi({
 });
 
 // Get image container
-
 const imageContainer = document.querySelector('.photohub-content__wrapper');
-const url = 'https://api.unsplash.com/photos'
+// Get single Image 
+const banner = document.querySelector('.showcase-banner');
+
+api.photos.getRandom('https://api.unsplash.com/photos/photos/random', {
+    collectionIds: ['abc123'],
+    topicIds: ['def456'],
+    featured: true,
+    username: 'naoufal',
+    query: 'dog',
+    count: 1,
+}).then(result => {
+    const photo = result.response;
+    console.log(photo);
+    banner.style.background = `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(${photo.urls.regular}) 0% 0% / cover no-repeat`;
+    const cite = document.createElement('div');
+    cite.classList.add('showcase-banner__cite');
+     cite.innerHTML = `<div class="cite-box">
+         <small class="box-cite__user">
+            <a href="javascript:void(0)">
+                <span> Photo by ${photo.user.first_name} </span
+            </a>
+         </small>
+    </div>`;
+    banner.appendChild(cite);
+})
 
 
-api.photos.list(url).then(result => {
+
+
+
+api.photos.list('https://api.unsplash.com/photos').then(result => {
     if (result.type === 'success') {
         const photos = result.response;
-        console.log(photos);
-
         photos.results.map((photo) => {
             const figure = document.createElement('figure');
             figure.classList.add('photohub-content__image');
@@ -42,4 +66,5 @@ api.photos.list(url).then(result => {
 });
 
 
-{/* <small> ${photo.sponsorship.sponser.tagline == 'undefined' ? photo.sponsorship.sponser.tagline : '' } </small> */}
+{
+    /* <small> ${photo.sponsorship.sponser.tagline == 'undefined' ? photo.sponsorship.sponser.tagline : '' } </small> */ }

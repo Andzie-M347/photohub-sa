@@ -19,10 +19,18 @@ body {
     font-size: 1.5rem;
 }
 
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
 
 
 div[class$="wrapper"] {
-    max-width: 1320px;
+    max-width: 1170px;
     margin: auto;
 
     line-height: 0;
@@ -138,6 +146,24 @@ div[class$="wrapper"] {
 }
 
 
+// Showcase banner
+.showcase-banner {
+    position: relative;
+    height: 75vh;
+    background-size: cover !important;
+
+    &__cite {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 11.5%;
+
+        a {
+            color: #fff;
+        }
+    }
+}
+
+
 // Image container
 
 .photohub-content {
@@ -164,7 +190,7 @@ div[class$="wrapper"] {
                     // LINK
                     color: #fff;
                     text-decoration: none;
-                    font-size: 1rem;
+                    font-size: 1.4rem;
                 }
             }
 
