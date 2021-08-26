@@ -9,16 +9,20 @@
 }
 
 
+html {
+    font-size: 62.5%;
+}
+
 body {
     font-family: 'Noto Sans JP',
         sans-serif;
-    font-size: 62.5%;
+    font-size: 1.5rem;
 }
 
 
 
 div[class$="wrapper"] {
-    max-width: 1170px;
+    max-width: 1320px;
     margin: auto;
 
     line-height: 0;
@@ -39,6 +43,16 @@ div[class$="wrapper"] {
     }
 }
 
+
+.button-light {
+    border: 1px solid #eee;
+    background: #eee;
+    padding: 1.2em !important;
+    display: inline-block;
+    margin-right: 1.5rem;
+    border-radius: .5rem;
+}
+
 // IMAGES
 
 .img-responsive {
@@ -46,6 +60,81 @@ div[class$="wrapper"] {
     height: auto;
     margin-bottom: 1.5rem;
     /* to match column gap */
+}
+
+
+
+// Navigation 
+
+.navigation {
+    background-color: #fff;
+
+    &__enter {
+        display: flex;
+        flex: 0 0 30%;
+
+        &--logo {
+            margin-right: 4.5rem;
+        }
+
+    }
+
+
+    &__menu {
+        li {
+            display: inline-block;
+            padding: 0 1.35rem;
+            list-style: none;
+
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 6.4rem;
+    }
+
+    &__search {
+        margin-right: 3rem;
+        flex: 1;
+
+        input {
+            width: 100%;
+            border: 1px solid #d1d1d1;
+            background: #eee;
+            padding: 1em 2em;
+            border-radius: 8rem;
+        }
+    }
+
+
+    &__user-options {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 1;
+        width: 100%;
+
+        a {
+            text-decoration: none;
+            padding: 0 1.5rem;
+        }
+
+
+        i {
+            font-size: 2rem;
+        }
+    }
+
+
+    a {
+        color: #767676;
+    }
 }
 
 
@@ -67,19 +156,19 @@ div[class$="wrapper"] {
                 align-items: center;
 
                 &__rounded {
-                    border-radius:50%;
+                    border-radius: 50%;
                     margin-right: 1rem;
                 }
 
                 &__title {
                     // LINK
-                     color: #fff;
-                     text-decoration: none;
-                     font-size: 1rem;
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 1rem;
                 }
             }
 
-          
+
         }
     }
 }

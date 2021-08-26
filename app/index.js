@@ -2,6 +2,7 @@ import {
     createApi
 } from "unsplash-js";
 import './css/main.css';
+import './icons/css/all.min.css';
 
 const api = createApi({
     accessKey: process.env.UNSPLASH_ACCESS_KEY
@@ -21,12 +22,16 @@ api.photos.list(url).then(result => {
         photos.results.map((photo) => {
             const figure = document.createElement('figure');
             figure.classList.add('photohub-content__image');
-            figure.innerHTML = `<img src="${photo.urls.raw}" class="img-responsive"/>`;
+            figure.innerHTML = `
+                <a href="javascript:void(0)" >
+                    <img src="${photo.urls.thumb}" class="img-responsive" title="${photo.alt_description}" />
+                </a>
+            `;
             imageContainer.appendChild(figure);
             const figcaption = document.createElement('figcaption');
             figcaption.innerHTML = `<div class="cite">
-                    <img src=${photo.user.profile_image.small} class="cite__rounded" alt=${photo.alt_description}>
-                     <a href="javascript:void(0)" class="cite__title" title=${photo.alt_description}> ${photo.user.first_name}</a>
+                    <img src=${photo.user.profile_image.small} class="cite__rounded" alt="${photo.alt_description}">
+                     <a href="javascript:void(0)" class="cite__title" title="${photo.user.first_name}"> ${photo.user.first_name}</a>
                 </div>`;
             figure.appendChild(figcaption);
         })
