@@ -219,3 +219,29 @@ div[class$="wrapper"] {
         }
     }
 }
+
+
+
+.dropdown-button {
+    position: relative;
+    &__list {
+        flex-direction: column;
+        border-radius: 4px;
+        padding: 1rem;
+        position: absolute;
+        background-color: #fff;
+        min-width: 18rem;
+        right: 0;
+        display: none;
+        margin-top: 3rem;
+        z-index: 999;
+        border: 1px solid #eee;
+    }
+}
+
+
+
+
+.dropdown-button.open .dropdown-button__list {
+    display: flex;
+}
