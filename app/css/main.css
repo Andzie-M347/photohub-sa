@@ -45,6 +45,10 @@ div[class$="wrapper"] {
   margin-right: 1.5rem;
   border-radius: .5rem; }
 
+.photohub-input:focus {
+  outline: none;
+  background: #eee; }
+
 .img-responsive {
   max-width: 100%;
   height: auto;
@@ -134,19 +138,39 @@ div[class$="wrapper"] {
         font-size: 1.4rem; }
 
 .dropdown-button {
-  position: relative; }
+  position: relative;
+  background: transparent;
+  border: none;
+  outline: none; }
   .dropdown-button__list {
     flex-direction: column;
-    border-radius: 4px;
-    padding: 1rem;
     position: absolute;
+    right: -2rem;
+    display: none;
+    margin-top: 3.5rem;
+    font-size: 1.5rem; }
+    .dropdown-button__list a {
+      line-height: 2.8rem; }
+  .dropdown-button__content {
     background-color: #fff;
     min-width: 18rem;
-    right: 0;
-    display: none;
-    margin-top: 3rem;
     z-index: 999;
-    border: 1px solid #eee; }
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 3rem 1.5rem;
+    position: relative; }
+    .dropdown-button__content::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 1.8rem;
+      width: 0;
+      height: 0;
+      border: 13px solid transparent;
+      border-bottom-color: #fff;
+      border-top: 0;
+      margin-left: -13px;
+      margin-top: -13px; }
 
 .dropdown-button.open .dropdown-button__list {
   display: flex; }
