@@ -158,6 +158,30 @@ div[class$="wrapper"] {
 }
 
 
+// Search Field
+.output-card {
+    // margin-top: 2rem;
+    &__inner {
+        background-color: #fff;
+        min-width: 18rem;
+        z-index: 999;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: 3rem 1.5rem;
+        position: absolute;
+        left: 63%;
+        transform: translateX(-63%);
+        right: 3rem;
+        max-width: 494px;
+    }
+
+    .search-results {
+        display: block;
+        line-height: 2.5rem;
+    }
+}
+
+
 // Showcase banner
 .showcase-banner {
     position: relative;
@@ -237,6 +261,7 @@ div[class$="wrapper"] {
     background: transparent;
     border: none;
     outline: none;
+    text-align: left;
 
     &__list {
         flex-direction: column;
@@ -249,33 +274,35 @@ div[class$="wrapper"] {
 
         a {
             line-height: 2.8rem;
+            color: #fff;
+            padding: 0;
         }
 
     }
 
 
     &__content {
-        background-color: #fff;
+        padding: 2rem;
+        background-color: #000;
         min-width: 18rem;
         z-index: 999;
-        border: 1px solid #eee;
+        border: 1px solid #222;
         border-radius: 4px;
-        padding: 3rem 1.5rem;
         position: relative;
 
-         &::after {
-             content: '';
-             position: absolute;
-             top: 0;
-             right: 1.8rem;
-             width: 0;
-             height: 0;
-             border: 13px solid transparent;
-             border-bottom-color: #fff;
-             border-top: 0;
-             margin-left: -13px;
-             margin-top: -13px;
-         }
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 1.8rem;
+            width: 0;
+            height: 0;
+            border: 13px solid transparent;
+            border-bottom-color: #000;
+            border-top: 0;
+            margin-left: -13px;
+            margin-top: -13px;
+        }
     }
 }
 

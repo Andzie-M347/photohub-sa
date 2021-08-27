@@ -3,15 +3,13 @@ import 'regenerator-runtime/runtime';
 import {
   createApi
 } from "unsplash-js";
+
 import './css/main.css';
 import './icons/css/all.min.css';
 
 const api = createApi({
   accessKey: process.env.UNSPLASH_ACCESS_KEY
 });
-
-
-
 
 // Dropdown menu
 (function () {
@@ -52,13 +50,53 @@ const api = createApi({
 })();
 
 
-// Get Images 
+// Search Autocomplete 
 
-const fetchTopics = async () => {
-  await fetch(`https://api.unsplash.com/topics/?client_id=qz7nM7QbPhljmodzwiDmPRkgQqiY8V8D32-syPrcchQ`)
+const output = document.querySelector('#output-card');
+const search = document.querySelector('#search');
+
+search.addEventListener('input', () => searchTopics(search.value));
+
+const searchTopics = async searchText => {
+  const res = await fetch(`https://api.unsplash.com/topics/?per_page=30&client_id=${process.env.UNSPLASH_ACCESS_KEY}`)
+  const topics = await res.json();
+
+  let matches = topics.filter(topic => {
+    const regex = new RegExp(`^${searchText}`, 'gi');
+    return topic.title.match(regex);
+  });
+
+  if (searchText.length === 0) {
+    matches = []
+    output.innerHTML = '';
+    output.classList.remove('output-card__inner');
+    
+  }
+
+  outputHtml(matches);
 };
 
-fetchTopics();
+
+const outputHtml = (matches) => {
+  if (matches.length > 0) {
+    
+    output.classList.add('output-card__inner');
+    const htmlOutput = matches.map((match) => {
+      return `<div class="search-results" > 
+          <a href="javascript:void(0)">  ${match.title} </a> 
+        </div >`
+    }).join('');
+
+
+    output.innerHTML = htmlOutput;
+  } 
+}
+
+
+
+
+
+
 
 
 // Get single Image 
