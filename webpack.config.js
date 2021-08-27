@@ -4,7 +4,7 @@ const env = require('dotenv-webpack');
 var path = require('path');
 
 module.exports = {
-    entry: './app/index.js',
+    entry: ['regenerator-runtime/runtime.js', './app/index.js'],
     output: {
         filename: 'bundle.js'
     },
@@ -20,18 +20,7 @@ module.exports = {
                     }
                 }
             },
-            // { test: /\.png/, use: [
-            //     {
-            //         loader: 'url-loader',
-            //         options: {
-            //            MimeType: 'images/png' 
-            //         }
-            //     }
-            // ] },
-
-
-
-
+        
             {
                 test: /\.s[ac]ss$/i,
                 use: [
