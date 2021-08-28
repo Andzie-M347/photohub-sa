@@ -11,6 +11,100 @@ const api = createApi({
   accessKey: process.env.UNSPLASH_ACCESS_KEY
 });
 
+
+const apiBase = 'https://api.unsplash.com';
+
+const imageContainer = document.querySelector('.photohub-content__wrapper');
+const loader = document.querySelector('.loading');
+
+
+let ready = false;
+let imagesLoaded = 0;
+let totalImages = 0;
+
+
+let count = 5;
+const apiKey = process.env.UNSPLASH_ACCESS_KEY;
+let apiUrl = `${apiBase}/photos/random/?client_id=${apiKey}&count=${count};`
+
+//new count api
+function updatedCount(newCount) {
+  newCount = 10;
+  apiUrl = `${apiBase}/photos/random/?client_id=${apiKey}&count=${newCount};`
+}
+
+
+function imageLoaded() {
+
+  imagesLoaded++;
+  if (imagesLoaded === totalImages) {
+    ready = true;
+    loader.hidden = true;
+    updatedCount()
+  }
+}
+
+
+function setAttributes(element, attributes) {
+  for (const key in attributes) {
+    element.setAttribute(key, attributes[key])
+  }
+
+}
+
+
+const getPhotos = async () => {
+  const response = await fetch(`${apiUrl}`);
+  let photosArray = await response.json();
+
+  imagesLoaded = 0;
+  totalImages = photosArray.length;
+
+  photosArray.map((photo) => {
+    const figure = document.createElement('figure');
+    const item = document.createElement('a');
+    const image = document.createElement('img');
+    const figcaption = document.createElement('figcaption');
+
+    setAttributes(figure, {
+      class: 'photohub-content__image'
+    });
+
+    setAttributes(item, {
+      title: photo.alt_description
+    });
+
+
+    setAttributes(image, {
+      alt: photo.alt_description,
+      src: photo.urls.regular,
+      class: 'img-responsive'
+
+    });
+
+    image.addEventListener('load', imageLoaded)
+
+    figure.appendChild(item);
+    item.appendChild(image);
+    figure.appendChild(figcaption)
+    imageContainer.appendChild(figure);
+
+  });
+
+}
+
+window.addEventListener('scroll', () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
+    ready = false;
+    getPhotos()
+  }
+})
+
+
+getPhotos();
+
+
+
 // Dropdown menu
 (function () {
   var elements = document.querySelectorAll(".dropdown-button");
@@ -50,125 +144,87 @@ const api = createApi({
 })();
 
 
+
+
 // Search Autocomplete 
 
-const output = document.querySelector('#output-card');
-const search = document.querySelector('#search');
+// const output = document.querySelector('#output-card');
+// const search = document.querySelector('#search');
 
-search.addEventListener('input', () => searchTopics(search.value));
+// search.addEventListener('input', () => searchTopics(search.value));
 
-const searchTopics = async searchText => {
-  const res = await fetch(`https://api.unsplash.com/topics/?per_page=30&client_id=${process.env.UNSPLASH_ACCESS_KEY}`)
-  const topics = await res.json();
+// const searchTopics = async searchText => {
+//   const res = await fetch(`https://api.unsplash.com/topics/?per_page=30&client_id=${process.env.UNSPLASH_ACCESS_KEY}`)
+//   const topics = await res.json();
 
-  let matches = topics.filter(topic => {
-    const regex = new RegExp(`^${searchText}`, 'gi');
-    return topic.title.match(regex);
-  });
+//   let matches = topics.filter(topic => {
+//     const regex = new RegExp(`^${searchText}`, 'gi');
+//     return topic.title.match(regex);
+//   });
 
-  if (searchText.length === 0) {
-    matches = []
-    output.innerHTML = '';
-    output.classList.remove('output-card__inner');
-    
-  }
+//   if (searchText.length === 0) {
+//     matches = []
+//     output.innerHTML = '';
+//     output.classList.remove('output-card__inner');
 
-  outputHtml(matches);
-};
+//   }
 
-
-const outputHtml = (matches) => {
-  if (matches.length > 0) {
-    
-    output.classList.add('output-card__inner');
-    const htmlOutput = matches.map((match) => {
-      return `<div class="search-results" > 
-          <a href="javascript:void(0)">  ${match.title} </a> 
-        </div >`
-    }).join('');
+//   outputHtml(matches);
+// };
 
 
-    output.innerHTML = htmlOutput;
-  } 
-}
+// const outputHtml = (matches) => {
+//   if (matches.length > 0) {
+
+//     output.classList.add('output-card__inner');
+//     const htmlOutput = matches.map((match) => {
+//       return `<div class="search-results" > 
+//           <a href="javascript:void(0)">  ${match.title} </a> 
+//         </div >`
+//     }).join('');
 
 
+//     output.innerHTML = htmlOutput;
+//   } 
+// }
 
 
 
-
-
-
-// Get single Image 
-const banner = document.querySelector('.showcase-banner');
-
-api.photos.getRandom('https://api.unsplash.com/photos/photos/random', {
-  collectionIds: ['abc123'],
-  topicIds: ['def456'],
-  featured: true,
-  username: 'naoufal',
-  query: 'dog',
-  count: 1,
-}).then(result => {
-  const photo = result.response;
-  banner.style.background = `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(${photo.urls.regular}) 0% 0% / cover no-repeat`;
-  const cite = document.createElement('div');
-  cite.classList.add('showcase-banner__cite');
-  cite.innerHTML = `<div class="cite-box">
-         <small class="box-cite__user">
-            <a href="javascript:void(0)">
-                <span> Photo by ${photo.user.first_name} </span
-            </a>
-         </small>
-    </div>`;
-  banner.appendChild(cite);
-});
-
-
-// Get image container
-const imageContainer = document.querySelector('.photohub-content__wrapper');
-
-api.photos.list('https://api.unsplash.com/photos').then(result => {
-  if (result.type === 'success') {
-    const photos = result.response;
-    photos.results.map((photo) => {
-      const figure = document.createElement('figure');
-      figure.classList.add('photohub-content__image');
-      figure.innerHTML = `
-                <a href="javascript:void(0)" >
-                    <img src="${photo.urls.thumb}" class="img-responsive" title="${photo.alt_description}" />
-                </a>
-            `;
-      imageContainer.appendChild(figure);
-      const figcaption = document.createElement('figcaption');
-      figcaption.innerHTML = `<div class="cite">
-                    <img src=${photo.user.profile_image.small} class="cite__rounded" alt="${photo.alt_description}">
-                     <a href="javascript:void(0)" class="cite__title" title="${photo.user.first_name}"> ${photo.user.first_name}</a>
-                </div>`;
-      figure.appendChild(figcaption);
-    })
-    // unsplash.photos.trackDownload({
-    //   downloadLocation: photo.links.download_location,
-    // });
-  }
-});
 
 // Tags - topics
 const tags = document.querySelector('.topics');
 
-api.topics.list('https://api.unsplash.com/topics', {
-  page: 1,
-  perPage: 12,
+const getTopic = async () => {
+  await fetch(`${apiBase}/topics/?per_page=12&client_id=${process.env.UNSPLASH_ACCESS_KEY}`)
+    .then(response => response.json())
+    .then(topics => {
+      const ul = document.createElement('ul');
 
-}).then(result => {
-  const topics = result.response;
-  topics.results.map((topic) => {
-    const li = document.createElement('li');
-    li.classList.add('topic__list');
-    li.innerHTML = `<div class="swiper">
-                <a href="javascript:void(0)">${topic.title}</a>
-        </div>`;
-    tags.appendChild(li);
-  });
+      topics.forEach(topic => {
+        const item = document.createElement('li');
+        const link = document.createElement('a');
 
-})
+        setAttributes(item, {
+          class: 'topic__list',
+        });
+
+        setAttributes(link, {
+          class: 'topic__list--link',
+          href: 'javascript:void(0)'
+        });
+
+        link.innerText = `${topic.title}`;
+
+        ul.appendChild(item);
+        item.appendChild(link);
+      })
+
+
+      tags.appendChild(ul);
+    })
+
+    .catch(error => console.log(error));
+
+}
+
+getTopic();
