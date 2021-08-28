@@ -38,7 +38,7 @@ div[class$="wrapper"] {
     -moz-column-count: 3;
     -moz-column-gap: 3px;
     column-count: 3;
-    column-gap: 3px;
+    column-gap: 1px;
 
 
     @media (max-width: 1200px) {
@@ -319,21 +319,21 @@ div[class$="wrapper"] {
 
 
 
-.loader {
+.loading {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: yellow;
+    background: #fafafa;
     height: 100vh;
-}
 
-.loader img {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
+    img {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 
+}
 
