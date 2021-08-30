@@ -1,5 +1,6 @@
 import 'regenerator-runtime/runtime';
 
+
 import {
   createApi
 } from "unsplash-js";
@@ -34,74 +35,74 @@ function updatedCount(newCount) {
 }
 
 
-function imageLoaded() {
+// function imageLoaded() {
 
-  imagesLoaded++;
-  if (imagesLoaded === totalImages) {
-    ready = true;
-    loader.hidden = true;
-    updatedCount()
-  }
-}
-
-
-function setAttributes(element, attributes) {
-  for (const key in attributes) {
-    element.setAttribute(key, attributes[key])
-  }
-
-}
+//   imagesLoaded++;
+//   if (imagesLoaded === totalImages) {
+//     ready = true;
+//     loader.hidden = true;
+//     updatedCount()
+//   }
+// }
 
 
-const getPhotos = async () => {
-  const response = await fetch(`${apiUrl}`);
-  let photosArray = await response.json();
+// function setAttributes(element, attributes) {
+//   for (const key in attributes) {
+//     element.setAttribute(key, attributes[key])
+//   }
 
-  imagesLoaded = 0;
-  totalImages = photosArray.length;
-
-  photosArray.map((photo) => {
-    const figure = document.createElement('figure');
-    const item = document.createElement('a');
-    const image = document.createElement('img');
-    const figcaption = document.createElement('figcaption');
-
-    setAttributes(figure, {
-      class: 'photohub-content__image'
-    });
-
-    setAttributes(item, {
-      title: photo.alt_description
-    });
+// }
 
 
-    setAttributes(image, {
-      alt: photo.alt_description,
-      src: photo.urls.regular,
-      class: 'img-responsive'
+// const getPhotos = async () => {
+//   const response = await fetch(`${apiUrl}`);
+//   let photosArray = await response.json();
 
-    });
+//   imagesLoaded = 0;
+//   totalImages = photosArray.length;
 
-    image.addEventListener('load', imageLoaded)
+//   photosArray.map((photo) => {
+//     const figure = document.createElement('figure');
+//     const item = document.createElement('a');
+//     const image = document.createElement('img');
+//     const figcaption = document.createElement('figcaption');
 
-    figure.appendChild(item);
-    item.appendChild(image);
-    figure.appendChild(figcaption)
-    imageContainer.appendChild(figure);
+//     setAttributes(figure, {
+//       class: 'photohub-content__image'
+//     });
 
-  });
-
-}
-
-window.addEventListener('scroll', () => {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
-    ready = false;
-    getPhotos()
-  }
-})
+//     setAttributes(item, {
+//       title: photo.alt_description
+//     });
 
 
-getPhotos();
+//     setAttributes(image, {
+//       alt: photo.alt_description,
+//       src: photo.urls.regular,
+//       class: 'img-responsive'
+
+//     });
+
+//     image.addEventListener('load', imageLoaded)
+
+//     figure.appendChild(item);
+//     item.appendChild(image);
+//     figure.appendChild(figcaption)
+//     imageContainer.appendChild(figure);
+
+//   });
+
+// }
+
+// window.addEventListener('scroll', () => {
+//   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
+//     ready = false;
+//     getPhotos()
+//   }
+// })
+
+
+// getPhotos();
 
 
 
@@ -192,35 +193,32 @@ getPhotos();
 
 
 // Tags - topics
-const tags = document.querySelector('.topics');
 
 const getTopic = async () => {
   await fetch(`${apiBase}/topics/?per_page=12&client_id=${process.env.UNSPLASH_ACCESS_KEY}`)
     .then(response => response.json())
     .then(topics => {
-      const ul = document.createElement('ul');
+      const ul = document.querySelector('.glide__slides');
+      ul.classList.add('.glide__slides')
 
-      topics.forEach(topic => {
-        const item = document.createElement('li');
-        const link = document.createElement('a');
+      // topics.map(topic => {
+      //   const item = document.querySelector('.glide__slide');
+      //   const link = document.createElement('a');
 
-        setAttributes(item, {
-          class: 'topic__list',
-        });
-
-        setAttributes(link, {
-          class: 'topic__list--link',
-          href: 'javascript:void(0)'
-        });
-
-        link.innerText = `${topic.title}`;
-
-        ul.appendChild(item);
-        item.appendChild(link);
-      })
+      //   setAttributes(link, {
+      //     href: 'javascript:void(0)'
+      //   })
 
 
-      tags.appendChild(ul);
+      //   link.innerText = `${topic.title}`;
+
+      //   item.appendChild(link);
+      //   ul.appendChild(item);
+        
+
+      // });
+
+  
     })
 
     .catch(error => console.log(error));
@@ -228,3 +226,23 @@ const getTopic = async () => {
 }
 
 getTopic();
+
+
+import Glide from '@glidejs/glide'
+
+// Topics slider
+var glide = new Glide('.glide', {
+  //  peek: 50,
+  perView: 8,
+  type: "carousel",
+  breakpoints: {
+    800: {
+      perView: 3
+    },
+    480: {
+      perView: 2
+    }
+  }
+})
+
+glide.mount()

@@ -14,6 +14,7 @@
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
+    "@glidejs/glide": "^3.4.1",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.2.0",
     "dotenv-webpack": "^7.0.3",
