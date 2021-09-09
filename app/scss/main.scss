@@ -36,12 +36,12 @@ div[class$="wrapper"] {
     line-height: 0;
     -webkit-column-count: 5;
     /* split it into 5 columns */
-    -webkit-column-gap: 5px;
+    -webkit-column-gap: 4px;
     /* give it a 5px gap between columns */
     -moz-column-count: 5;
-    -moz-column-gap: 5px;
+    -moz-column-gap: 4px;
     column-count: 5;
-    column-gap: 5px;
+    column-gap: 6px;
 
 
     @media (max-width: 1200px) {
@@ -311,4 +311,82 @@ div[class$="wrapper"] {
 
 .dropdown-button.open .dropdown-button__list {
     display: flex;
+}
+
+
+// Loader 
+
+#load-more {
+    display: flex;
+    background: transparent;
+    justify-content: center;
+    font-size: 8rem;
+
+
+    .loader {
+        display: inline-block;
+        font-size: 0px;
+        padding: 0px;
+
+        span {
+            vertical-align: middle;
+            border-radius: 100%;
+            display: inline-block;
+            width: 1.325rem;
+            height: 1.325rem;
+            margin: 3px 2px;
+            -webkit-animation: loader1 0.8s linear infinite alternate;
+            animation: loader1 0.8s linear infinite alternate;
+
+            &:nth-child(1) {
+                -webkit-animation-delay: -1s;
+                animation-delay: -1s;
+                background: rgba(245, 103, 115, 0.6);
+            }
+
+            &:nth-child(2) {
+                -webkit-animation-delay: -0.8s;
+                animation-delay: -0.8s;
+                background: rgba(245, 103, 115, 0.8);
+            }
+
+            &:nth-child(3) {
+                -webkit-animation-delay: -0.26666s;
+                animation-delay: -0.26666s;
+                background: rgba(245, 103, 115, 1);
+            }
+
+            &:nth-child(4) {
+                -webkit-animation-delay: -0.8s;
+                animation-delay: -0.8s;
+                background: rgba(245, 103, 115, 0.8);
+            }
+
+            &:nth-child(5) {
+                -webkit-animation-delay: -1s;
+                animation-delay: -1s;
+                background: rgba(245, 103, 115, 0.4);
+            }
+        }
+    }
+
+    @keyframes loader1 {
+        from {
+            transform: scale(0, 0);
+        }
+
+        to {
+            transform: scale(1, 1);
+        }
+    }
+
+    @-webkit-keyframes loader1 {
+        from {
+            -webkit-transform: scale(0, 0);
+        }
+
+        to {
+            -webkit-transform: scale(1, 1);
+        }
+    }
 }
