@@ -20,14 +20,6 @@ const apiEndpoint = `${url}/photos/?client_id=${apiKey}&page=${page}&per_page=${
 
 
 
-
-// async function getResponse() {
-//   const pro = await fetch(apiEndpoint);
-//   return pro;
-// }
-
-// getResponse();
-
 // Get image container
 const imageContainer = document.querySelector('.photohub-content__wrapper');
 
@@ -165,29 +157,29 @@ const outputHtml = (matches) => {
 
 
 // Get single Image 
-// const banner = document.querySelector('.showcase-banner');
+const banner = document.querySelector('.showcase-banner');
 
-// api.photos.getRandom('https://api.unsplash.com/photos/photos/random', {
-//   collectionIds: ['abc123'],
-//   topicIds: ['def456'],
-//   featured: true,
-//   username: 'naoufal',
-//   query: 'dog',
-//   count: 1,
-// }).then(result => {
-//   const photo = result.response;
-//   banner.style.background = `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(${photo.urls.regular}) 0% 0% / cover no-repeat`;
-//   const cite = document.createElement('div');
-//   cite.classList.add('showcase-banner__cite');
-//   cite.innerHTML = `<div class="cite-box">
-//          <small class="box-cite__user">
-//             <a href="javascript:void(0)">
-//                 <span> Photo by ${photo.user.first_name} </span
-//             </a>
-//          </small>
-//     </div>`;
-//   banner.appendChild(cite);
-// });
+api.photos.getRandom('https://api.unsplash.com/photos/photos/random', {
+  collectionIds: ['abc123'],
+  topicIds: ['def456'],
+  featured: true,
+  username: 'naoufal',
+  query: 'dog',
+  count: 1,
+}).then(result => {
+  const photo = result.response;
+  banner.style.background = `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url(${photo.urls.regular}) 0% 0% / cover no-repeat`;
+  const cite = document.createElement('div');
+  cite.classList.add('showcase-banner__cite');
+  cite.innerHTML = `<div class="cite-box">
+         <small class="box-cite__user">
+            <a href="javascript:void(0)">
+                <span> Photo by ${photo.user.first_name} </span
+            </a>
+         </small>
+    </div>`;
+  banner.appendChild(cite);
+});
 
 
 
