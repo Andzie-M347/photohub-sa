@@ -136,12 +136,12 @@ div[class$="wrapper"] {
   max-width: 1170px;
   margin: auto;
   line-height: 0;
-  -webkit-column-count: 3;
-  -webkit-column-gap: 3px;
-  -moz-column-count: 3;
-  -moz-column-gap: 3px;
-  column-count: 3;
-  column-gap: 1px; }
+  -webkit-column-count: 5;
+  -webkit-column-gap: 4px;
+  -moz-column-count: 5;
+  -moz-column-gap: 4px;
+  column-count: 5;
+  column-gap: 6px; }
   @media (max-width: 1200px) {
     div[class$="wrapper"] {
       -moz-column-count: 3;

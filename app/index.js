@@ -14,7 +14,6 @@ const api = createApi({
 
 
 const apiBase = 'https://api.unsplash.com';
-const more = document.querySelector('#load-more');
 const imageContainer = document.querySelector('.photohub-content__wrapper');
 const loader = document.querySelector('.loader');
 
