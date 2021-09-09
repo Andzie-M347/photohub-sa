@@ -14,9 +14,9 @@ const api = createApi({
 
 
 const apiBase = 'https://api.unsplash.com';
-
+const more = document.querySelector('#load-more');
 const imageContainer = document.querySelector('.photohub-content__wrapper');
-const loader = document.querySelector('.loading');
+const loader = document.querySelector('.loader');
 
 
 let ready = false;
@@ -35,74 +35,74 @@ function updatedCount(newCount) {
 }
 
 
-// function imageLoaded() {
+function imageLoaded() {
 
-//   imagesLoaded++;
-//   if (imagesLoaded === totalImages) {
-//     ready = true;
-//     loader.hidden = true;
-//     updatedCount()
-//   }
-// }
-
-
-// function setAttributes(element, attributes) {
-//   for (const key in attributes) {
-//     element.setAttribute(key, attributes[key])
-//   }
-
-// }
+  imagesLoaded++;
+  if (imagesLoaded === totalImages) {
+    ready = true;
+    loader.hidden = true;
+    updatedCount()
+  }
+}
 
 
-// const getPhotos = async () => {
-//   const response = await fetch(`${apiUrl}`);
-//   let photosArray = await response.json();
+function setAttributes(element, attributes) {
+  for (const key in attributes) {
+    element.setAttribute(key, attributes[key])
+  }
 
-//   imagesLoaded = 0;
-//   totalImages = photosArray.length;
-
-//   photosArray.map((photo) => {
-//     const figure = document.createElement('figure');
-//     const item = document.createElement('a');
-//     const image = document.createElement('img');
-//     const figcaption = document.createElement('figcaption');
-
-//     setAttributes(figure, {
-//       class: 'photohub-content__image'
-//     });
-
-//     setAttributes(item, {
-//       title: photo.alt_description
-//     });
+}
 
 
-//     setAttributes(image, {
-//       alt: photo.alt_description,
-//       src: photo.urls.regular,
-//       class: 'img-responsive'
+const getPhotos = async () => {
+  const response = await fetch(`${apiUrl}`);
+  let photosArray = await response.json();
 
-//     });
+  imagesLoaded = 0;
+  totalImages = photosArray.length;
 
-//     image.addEventListener('load', imageLoaded)
+  photosArray.map((photo) => {
+    const figure = document.createElement('figure');
+    const item = document.createElement('a');
+    const image = document.createElement('img');
+    const figcaption = document.createElement('figcaption');
 
-//     figure.appendChild(item);
-//     item.appendChild(image);
-//     figure.appendChild(figcaption)
-//     imageContainer.appendChild(figure);
+    setAttributes(figure, {
+      class: 'photohub-content__image'
+    });
 
-//   });
-
-// }
-
-// window.addEventListener('scroll', () => {
-//   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
-//     ready = false;
-//     getPhotos()
-//   }
-// })
+    setAttributes(item, {
+      title: photo.alt_description
+    });
 
 
-// getPhotos();
+    setAttributes(image, {
+      alt: photo.alt_description,
+      src: photo.urls.regular,
+      class: 'img-responsive'
+
+    });
+
+    image.addEventListener('load', imageLoaded)
+
+    figure.appendChild(item);
+    item.appendChild(image);
+    figure.appendChild(figcaption)
+    imageContainer.appendChild(figure);
+
+  });
+
+}
+
+window.addEventListener('scroll', () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
+    ready = false;
+    getPhotos()
+  }
+})
+
+
+getPhotos();
 
 
 
